@@ -33,6 +33,7 @@ services:
       - ./application:/var/www/symfony_docker
     depends_on:
       - database
+    command: sh -c "composer install && bin/console doctrine:schema:update --force"
   nginx:
     container_name: nginx
     image: nginx:stable-alpine
