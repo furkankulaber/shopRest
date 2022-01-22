@@ -1,8 +1,9 @@
 
 ###> symfony/framework-bundle ###
-./application/public/bundles/
-./application/var/
-./application/vendor/
-./mysql
+/application/public/bundles/
+/application/var/
+/application/vendor/
+mysql
+.idea
 
 ###< symfony/framework-bundle ###
