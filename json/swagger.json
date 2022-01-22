@@ -1,0 +1,1372 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Login And Shopping System",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "LocalServer"
+    }
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "Register User",
+        "operationId": "post-register",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sessionToken": {},
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "set": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "username": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "email": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "username",
+                            "email"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "set"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "result"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "code": "200.0000",
+                      "message": "furkankulasber@gmail.com mail adresli kullanıcı kayıt edildi",
+                      "sessionToken": null,
+                      "result": {
+                        "set": {
+                          "id": 22,
+                          "username": "furkankulsaber@gmail.com",
+                          "email": "furkankulasber@gmail.com"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "200.0000": {
+                    "value": {
+                      "code": "200.0000",
+                      "message": "furkankulasber@gmail.com mail adresli kullanıcı kayıt edildi",
+                      "sessionToken": null,
+                      "result": {
+                        "set": {
+                          "id": 22,
+                          "username": "furkankulsaber@gmail.com",
+                          "email": "furkankulasber@gmail.com"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "email": "furkankulaber@gmail.com",
+                    "username": "furkankulaber",
+                    "password": "furkankulaber"
+                  }
+                },
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "email",
+                    "default": "furkankulaber@gmail.com"
+                  },
+                  "username": {
+                    "type": "string",
+                    "minLength": 1,
+                    "default": "furkankulaber"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 1,
+                    "default": "furkankulaber"
+                  }
+                },
+                "required": [
+                  "email",
+                  "username",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "x-internal": false,
+        "tags": [
+          "User"
+        ],
+        "description": ""
+      }
+    },
+    "/api/login": {
+      "post": {
+        "summary": "Login User",
+        "operationId": "post-api-login_check",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sessionToken": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "set": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "username": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "email": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "username",
+                            "email"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "set"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "sessionToken",
+                    "result"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "code": "200.0000",
+                      "message": "İşleminiz başarıyla gerçekleştirildi",
+                      "sessionToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NDI4NTc3MzcsImV4cCI6MTY0Mjg2MTMzNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZnVya2Fua3VsYWJlckBnbWFpbC5jb20ifQ.QRUa8cpAiW9MTzafpEJxo1bCGf7XpYn6uxrJVmm20MJ3moSK583LEJShce8VfVmq08BSGlINPEXEwHF-uZ-ikCNqdhVbAQebfFM-uI05rJXeXsAaargUPLC4x72hfqYa76Tjvuidd_vo8_Sw1RmdhJhVKdbTzejlFwFGRSVVrpZiN9FfQn_Q3ZgcHhQG7GBAGPwu6jF3dXTLpux8X43dWOzymMQjKSWPNJBKnHNVXkBD-y4OzPKxmOAu5VTqbDB3Qbowh8EOi7_RSzLrg8RFxxlEwvaIgekTqF2UlEbJKrc6Hv0FHRsa5T-86AMu_wY2zP37m0X7I7J8fNnqp1LIQA",
+                      "result": {
+                        "set": {
+                          "id": 20,
+                          "username": "furkankulaber@gmail.com",
+                          "email": "furkankulaber@gmail.com"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "200.0000": {
+                    "value": {
+                      "code": "200.0000",
+                      "message": "İşleminiz başarıyla gerçekleştirildi",
+                      "sessionToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NDI4NTc3MzcsImV4cCI6MTY0Mjg2MTMzNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZnVya2Fua3VsYWJlckBnbWFpbC5jb20ifQ.QRUa8cpAiW9MTzafpEJxo1bCGf7XpYn6uxrJVmm20MJ3moSK583LEJShce8VfVmq08BSGlINPEXEwHF-uZ-ikCNqdhVbAQebfFM-uI05rJXeXsAaargUPLC4x72hfqYa76Tjvuidd_vo8_Sw1RmdhJhVKdbTzejlFwFGRSVVrpZiN9FfQn_Q3ZgcHhQG7GBAGPwu6jF3dXTLpux8X43dWOzymMQjKSWPNJBKnHNVXkBD-y4OzPKxmOAu5VTqbDB3Qbowh8EOi7_RSzLrg8RFxxlEwvaIgekTqF2UlEbJKrc6Hv0FHRsa5T-86AMu_wY2zP37m0X7I7J8fNnqp1LIQA",
+                      "result": {
+                        "set": {
+                          "id": 20,
+                          "username": "furkankulaber@gmail.com",
+                          "email": "furkankulaber@gmail.com"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "result": {}
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "code": "401.0000",
+                      "message": "Geçersiz Kullanıcı adı veya Şifre",
+                      "result": null
+                    }
+                  }
+                },
+                "examples": {
+                  "401.000": {
+                    "value": {
+                      "code": "401.0000",
+                      "message": "Geçersiz Kullanıcı adı veya Şifre",
+                      "result": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "username": "furkankulaber@gmail.com",
+                    "password": "furkankulaber"
+                  }
+                },
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "email",
+                    "default": "furkankulaber@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 1,
+                    "default": "furkankulaber"
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "User"
+        ],
+        "parameters": []
+      },
+      "parameters": []
+    },
+    "/api/address": {
+      "get": {
+        "summary": "Get Address",
+        "tags": [
+          "Address"
+        ],
+        "responses": {},
+        "operationId": "get-api-address",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "code": "200.0000",
+                    "message": "İşleminiz başarıyla gerçekleştirilmiştir.",
+                    "sessionToken": null,
+                    "result": {
+                      "set": [
+                        {
+                          "id": 1,
+                          "title": "",
+                          "address": "Deneme Adress",
+                          "createdAt": "2022-01-22T12:46:10+00:00",
+                          "updatedAt": "2022-01-22T12:46:10+00:00"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "message": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sessionToken": {},
+                  "result": {
+                    "type": "object",
+                    "required": [
+                      "set"
+                    ],
+                    "properties": {
+                      "set": {
+                        "type": "array",
+                        "uniqueItems": true,
+                        "minItems": 1,
+                        "items": {}
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "result"
+                ]
+              },
+              "examples": {
+                "listAddress": {
+                  "value": {
+                    "code": "200.0000",
+                    "message": "İşleminiz başarıyla gerçekleştirilmiştir.",
+                    "sessionToken": null,
+                    "result": {
+                      "set": [
+                        {
+                          "id": 1,
+                          "title": "",
+                          "address": "Deneme Adress",
+                          "createdAt": "2022-01-22T12:46:10+00:00",
+                          "updatedAt": "2022-01-22T12:46:10+00:00"
+                        },
+                        {
+                          "id": 2,
+                          "title": "",
+                          "address": "Deneme Adress",
+                          "createdAt": "2022-01-22T12:46:10+00:00",
+                          "updatedAt": "2022-01-22T12:46:10+00:00"
+                        },
+                        {
+                          "id": 3,
+                          "title": "",
+                          "address": "Deneme Adress",
+                          "createdAt": "2022-01-22T12:46:10+00:00",
+                          "updatedAt": "2022-01-22T12:46:10+00:00"
+                        },
+                        {
+                          "id": 4,
+                          "title": "title",
+                          "address": "Deneme Adress",
+                          "createdAt": "2022-01-22T14:10:02+00:00",
+                          "updatedAt": "2022-01-22T14:10:02+00:00"
+                        },
+                        {
+                          "id": 5,
+                          "title": "title",
+                          "address": "Deneme Adress",
+                          "createdAt": "2022-01-22T14:10:53+00:00",
+                          "updatedAt": "2022-01-22T14:10:53+00:00"
+                        },
+                        {
+                          "id": 6,
+                          "title": "title",
+                          "address": "Deneme Adress",
+                          "createdAt": "2022-01-22T14:11:15+00:00",
+                          "updatedAt": "2022-01-22T14:11:15+00:00"
+                        },
+                        {
+                          "id": 7,
+                          "title": "title",
+                          "address": "Deneme Adress",
+                          "createdAt": "2022-01-22T14:11:36+00:00",
+                          "updatedAt": "2022-01-22T14:11:36+00:00"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/address/insert": {
+      "post": {
+        "summary": "Insert Address",
+        "operationId": "post-api-address-insert",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Address"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "title": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "address",
+                  "title"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "address": "Deneme Adress",
+                    "title": "title"
+                  }
+                }
+              },
+              "examples": {
+                "addAdress": {
+                  "value": {
+                    "address": "Deneme Adress",
+                    "title": "title"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/shopping": {
+      "get": {
+        "summary": "List Order",
+        "responses": {},
+        "operationId": "get-api-shopping",
+        "tags": [
+          "Order"
+        ]
+      }
+    },
+    "/api/shopping/insert": {
+      "post": {
+        "summary": "Insert Order",
+        "operationId": "post-api-shopping-insert",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Order"
+        ]
+      }
+    },
+    "/api/shopping/{orderId}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "orderId",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "put": {
+        "summary": "Order Update",
+        "operationId": "put-api-shopping-orderId",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sessionToken": {},
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "set": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "orderCode": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "user": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "username": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "email": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "username",
+                                "email"
+                              ]
+                            },
+                            "address": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "address": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "createdAt": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "updatedAt": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "title",
+                                "address",
+                                "createdAt",
+                                "updatedAt"
+                              ]
+                            },
+                            "items": {
+                              "type": "array",
+                              "uniqueItems": true,
+                              "minItems": 1,
+                              "items": {
+                                "required": [
+                                  "id",
+                                  "title",
+                                  "qty"
+                                ],
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "title": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "qty": {
+                                    "type": "number"
+                                  }
+                                }
+                              }
+                            },
+                            "status": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "shippingAt": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "orderCode",
+                            "user",
+                            "address",
+                            "items",
+                            "status",
+                            "shippingAt",
+                            "createdAt",
+                            "updatedAt"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "set"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "result"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "code": "200.0000",
+                      "message": "İşleminiz başarıyla gerçekleştirilmiştir.",
+                      "sessionToken": null,
+                      "result": {
+                        "set": {
+                          "id": 20,
+                          "orderCode": "20.20220122122231",
+                          "user": {
+                            "id": 20,
+                            "username": "furkankulaber@gmail.com",
+                            "email": "furkankulaber@gmail.com"
+                          },
+                          "address": {
+                            "id": 2,
+                            "title": "",
+                            "address": "Deneme Adress",
+                            "createdAt": "2022-01-22T12:46:10+00:00",
+                            "updatedAt": "2022-01-22T12:46:10+00:00"
+                          },
+                          "items": [
+                            {
+                              "id": 17,
+                              "title": "Test",
+                              "qty": 3
+                            },
+                            {
+                              "id": 18,
+                              "title": "Test",
+                              "qty": 3
+                            }
+                          ],
+                          "status": "s",
+                          "shippingAt": "2022-02-12T00:00:00+00:00",
+                          "createdAt": "2022-01-22T12:22:31+00:00",
+                          "updatedAt": "2022-01-22T14:20:33+00:00"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Order Update": {
+                    "value": {
+                      "code": "200.0000",
+                      "message": "İşleminiz başarıyla gerçekleştirilmiştir.",
+                      "sessionToken": null,
+                      "result": {
+                        "set": {
+                          "id": 20,
+                          "orderCode": "20.20220122122231",
+                          "user": {
+                            "id": 20,
+                            "username": "furkankulaber@gmail.com",
+                            "email": "furkankulaber@gmail.com"
+                          },
+                          "address": {
+                            "id": 2,
+                            "title": "",
+                            "address": "Deneme Adress",
+                            "createdAt": "2022-01-22T12:46:10+00:00",
+                            "updatedAt": "2022-01-22T12:46:10+00:00"
+                          },
+                          "items": [
+                            {
+                              "id": 17,
+                              "title": "Test",
+                              "qty": 3
+                            },
+                            {
+                              "id": 18,
+                              "title": "Test",
+                              "qty": 3
+                            }
+                          ],
+                          "status": "s",
+                          "shippingAt": "2022-02-12T00:00:00+00:00",
+                          "createdAt": "2022-01-22T12:22:31+00:00",
+                          "updatedAt": "2022-01-22T14:20:33+00:00"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "shippingAt": "2022-02-12 00:00:00",
+                    "status": "s"
+                  }
+                },
+                "properties": {
+                  "shippingAt": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "examples": {
+                "Update Order": {
+                  "value": {
+                    "shippingAt": "2022-02-12 00:00:00",
+                    "status": "s"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Order"
+        ]
+      }
+    },
+    "/api/shopping/status/{orderId}/{status}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string",
+            "default": "19"
+          },
+          "name": "orderId",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string",
+            "default": "i,s,d"
+          },
+          "name": "status",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "patch": {
+        "summary": "Order Status Update",
+        "operationId": "patch-api-shopping-status-orderId-status",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sessionToken": {},
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "set": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "orderCode": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "user": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "username": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "email": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "username",
+                                "email"
+                              ]
+                            },
+                            "address": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "address": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "createdAt": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "updatedAt": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "title",
+                                "address",
+                                "createdAt",
+                                "updatedAt"
+                              ]
+                            },
+                            "items": {
+                              "type": "array",
+                              "uniqueItems": true,
+                              "minItems": 1,
+                              "items": {
+                                "required": [
+                                  "id",
+                                  "title",
+                                  "qty"
+                                ],
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "title": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "qty": {
+                                    "type": "number"
+                                  }
+                                }
+                              }
+                            },
+                            "status": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "shippingAt": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "orderCode",
+                            "user",
+                            "address",
+                            "items",
+                            "status",
+                            "shippingAt",
+                            "createdAt",
+                            "updatedAt"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "set"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "result"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "code": "200.0000",
+                      "message": "İşleminiz başarıyla gerçekleştirilmiştir.",
+                      "sessionToken": null,
+                      "result": {
+                        "set": {
+                          "id": 19,
+                          "orderCode": "20.20220122121944",
+                          "user": {
+                            "id": 20,
+                            "username": "furkankulaber@gmail.com",
+                            "email": "furkankulaber@gmail.com"
+                          },
+                          "address": {
+                            "id": 3,
+                            "title": "",
+                            "address": "Deneme Adress",
+                            "createdAt": "2022-01-22T12:46:10+00:00",
+                            "updatedAt": "2022-01-22T12:46:10+00:00"
+                          },
+                          "items": [
+                            {
+                              "id": 15,
+                              "title": "Test",
+                              "qty": 3
+                            },
+                            {
+                              "id": 16,
+                              "title": "Test",
+                              "qty": 3
+                            }
+                          ],
+                          "status": "i",
+                          "shippingAt": "2022-02-12T00:00:00+00:00",
+                          "createdAt": "2022-01-22T12:19:44+00:00",
+                          "updatedAt": "2022-01-22T12:19:44+00:00"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Order Status Update": {
+                    "value": {
+                      "code": "200.0000",
+                      "message": "İşleminiz başarıyla gerçekleştirilmiştir.",
+                      "sessionToken": null,
+                      "result": {
+                        "set": {
+                          "id": 19,
+                          "orderCode": "20.20220122121944",
+                          "user": {
+                            "id": 20,
+                            "username": "furkankulaber@gmail.com",
+                            "email": "furkankulaber@gmail.com"
+                          },
+                          "address": {
+                            "id": 3,
+                            "title": "",
+                            "address": "Deneme Adress",
+                            "createdAt": "2022-01-22T12:46:10+00:00",
+                            "updatedAt": "2022-01-22T12:46:10+00:00"
+                          },
+                          "items": [
+                            {
+                              "id": 15,
+                              "title": "Test",
+                              "qty": 3
+                            },
+                            {
+                              "id": 16,
+                              "title": "Test",
+                              "qty": 3
+                            }
+                          ],
+                          "status": "i",
+                          "shippingAt": "2022-02-12T00:00:00+00:00",
+                          "createdAt": "2022-01-22T12:19:44+00:00",
+                          "updatedAt": "2022-01-22T12:19:44+00:00"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Order"
+        ]
+      }
+    },
+    "/api/shopping/address/{orderId}/{addressId}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string",
+            "default": "19"
+          },
+          "name": "orderId",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string",
+            "default": "2"
+          },
+          "name": "addressId",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "patch": {
+        "summary": "Order Address Update",
+        "operationId": "patch-api-shopping-address-orderId-address",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sessionToken": {},
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "set": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "orderCode": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "user": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "username": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "email": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "username",
+                                "email"
+                              ]
+                            },
+                            "address": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "address": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "createdAt": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "updatedAt": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "title",
+                                "address",
+                                "createdAt",
+                                "updatedAt"
+                              ]
+                            },
+                            "items": {
+                              "type": "array",
+                              "uniqueItems": true,
+                              "minItems": 1,
+                              "items": {
+                                "required": [
+                                  "id",
+                                  "title",
+                                  "qty"
+                                ],
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "title": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "qty": {
+                                    "type": "number"
+                                  }
+                                }
+                              }
+                            },
+                            "status": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "shippingAt": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "orderCode",
+                            "user",
+                            "address",
+                            "items",
+                            "status",
+                            "shippingAt",
+                            "createdAt",
+                            "updatedAt"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "set"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "result"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "code": "200.0000",
+                      "message": "İşleminiz başarıyla gerçekleştirilmiştir.",
+                      "sessionToken": null,
+                      "result": {
+                        "set": {
+                          "id": 19,
+                          "orderCode": "20.20220122121944",
+                          "user": {
+                            "id": 20,
+                            "username": "furkankulaber@gmail.com",
+                            "email": "furkankulaber@gmail.com"
+                          },
+                          "address": {
+                            "id": 2,
+                            "title": "",
+                            "address": "Deneme Adress",
+                            "createdAt": "2022-01-22T12:46:10+00:00",
+                            "updatedAt": "2022-01-22T12:46:10+00:00"
+                          },
+                          "items": [
+                            {
+                              "id": 15,
+                              "title": "Test",
+                              "qty": 3
+                            },
+                            {
+                              "id": 16,
+                              "title": "Test",
+                              "qty": 3
+                            }
+                          ],
+                          "status": "i",
+                          "shippingAt": "2022-02-12T00:00:00+00:00",
+                          "createdAt": "2022-01-22T12:19:44+00:00",
+                          "updatedAt": "2022-01-22T14:25:04+00:00"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Order Address Update": {
+                    "value": {
+                      "code": "200.0000",
+                      "message": "İşleminiz başarıyla gerçekleştirilmiştir.",
+                      "sessionToken": null,
+                      "result": {
+                        "set": {
+                          "id": 19,
+                          "orderCode": "20.20220122121944",
+                          "user": {
+                            "id": 20,
+                            "username": "furkankulaber@gmail.com",
+                            "email": "furkankulaber@gmail.com"
+                          },
+                          "address": {
+                            "id": 2,
+                            "title": "",
+                            "address": "Deneme Adress",
+                            "createdAt": "2022-01-22T12:46:10+00:00",
+                            "updatedAt": "2022-01-22T12:46:10+00:00"
+                          },
+                          "items": [
+                            {
+                              "id": 15,
+                              "title": "Test",
+                              "qty": 3
+                            },
+                            {
+                              "id": 16,
+                              "title": "Test",
+                              "qty": 3
+                            }
+                          ],
+                          "status": "i",
+                          "shippingAt": "2022-02-12T00:00:00+00:00",
+                          "createdAt": "2022-01-22T12:19:44+00:00",
+                          "updatedAt": "2022-01-22T14:25:04+00:00"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Order"
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "API Key - 1": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "API Key - 1": []
+    }
+  ]
+}
